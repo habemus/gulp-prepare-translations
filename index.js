@@ -9,6 +9,8 @@ const File = require('vinyl');
 const objectPath = require('object-path');
 const Bluebird = require('bluebird');
 
+const JSONStableStringify = require('json-stable-stringify');
+
 // promisify
 Bluebird.promisifyAll(fs);
 
@@ -161,7 +163,12 @@ module.exports = function gulpPrepareTranslations(options) {
       })
       .then((translations) => {
         
-        file.contents = new Buffer(JSON.stringify(translations, null, '  '));
+        // stringify alphabetically
+        var translationsStr = JSONStableStringify(translations, {
+          space: '  '
+        });
+        
+        file.contents = new Buffer(translationsStr);
         
         this.push(file);
       });
