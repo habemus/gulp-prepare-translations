@@ -4,10 +4,12 @@ const fs   = require('fs');
 
 // third-party
 const through = require('through2');
+const gutil = require('gulp-util');
 const PluginError = require('gulp-util').PluginError;
 const File = require('vinyl');
 const objectPath = require('object-path');
 const Bluebird = require('bluebird');
+const traverse = require('traverse');
 
 const JSONStableStringify = require('json-stable-stringify');
 
@@ -36,7 +38,12 @@ module.exports = function gulpPrepareTranslations(options) {
     options.patterns : [options.patterns];
   
   // default value to which untranslated keys will be set
-  options.defaultTranslation = options.defaultTranslation || null;
+  options.defaultTranslation = options.defaultTranslation === undefined ?
+    null : options.defaultTranslation;
+  
+  // whether to warn about unused translations or not
+  options.warnUnused = options.warnUnused === undefined ?
+    true : options.warnUnused;
 
   var latestFile;
   var extractedTranslationKeys = [];
@@ -162,6 +169,28 @@ module.exports = function gulpPrepareTranslations(options) {
         
       })
       .then((translations) => {
+        
+        if (options.warnUnused) {
+          
+          var allTranslationKeys = traverse(translations).reduce(function (acc, x) {
+            if (this.isLeaf) {
+              acc.push(this.path.join('.'));
+            }
+            return acc;
+          }, []);
+          
+          allTranslationKeys.forEach((translationKey) => {
+            
+            if (extractedTranslationKeys.indexOf(translationKey) === -1) {
+              gutil.log(
+                gutil.colors.red('unused translation key:'),
+                gutil.colors.blue(translationKey)
+              );
+            }
+            
+          });
+          
+        }
         
         // stringify alphabetically
         var translationsStr = JSONStableStringify(translations, {

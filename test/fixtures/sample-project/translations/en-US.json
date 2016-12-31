@@ -1,5 +1,8 @@
 {
   "page": {
     "title": "Sample page title"
+  },
+  "unused": {
+    "key": "unsued key"
   }
 }

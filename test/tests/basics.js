@@ -37,6 +37,7 @@ describe('basics', function () {
             /_t\('(.+)'\)/g,
             /data-translate="(.+)"/g,
           ],
+          warnUnused: true,
         }))
         .on('error', reject)
         .pipe(vinylFs.dest(TMP_PATH))
