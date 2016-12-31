@@ -1,0 +1,23 @@
+{
+  "name": "gulp-prepare-i18n",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "gulp-util": "^3.0.8",
+    "object-path": "^0.11.3",
+    "through2": "^2.0.3",
+    "vinyl": "^2.0.1"
+  },
+  "devDependencies": {
+    "fs-extra": "^1.0.0",
+    "should": "^11.1.2",
+    "vinyl-fs": "^2.4.4"
+  }
+}
