@@ -184,6 +184,7 @@ module.exports = function gulpPrepareTranslations(options) {
             if (extractedTranslationKeys.indexOf(translationKey) === -1) {
               gutil.log(
                 gutil.colors.red('unused translation key:'),
+                gutil.colors.magenta(language.code),
                 gutil.colors.blue(translationKey)
               );
             }
