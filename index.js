@@ -13,9 +13,9 @@ const Bluebird = require('bluebird');
 Bluebird.promisifyAll(fs);
 
 // constants
-const PLUGIN_NAME = 'gulp-prepare-i18n';
+const PLUGIN_NAME = 'gulp-prepare-translations';
 
-module.exports = function gulpPrepareI18n(options) {
+module.exports = function gulpPrepareTranslations(options) {
   
   if (!options) {
     throw new Error('options is required');

@@ -7,7 +7,7 @@ const fse     = require('fs-extra');
 const vinylFs = require('vinyl-fs');
 
 // lib
-const gulpPrepareI18n = require('../../');
+const gulpPrepareTranslations = require('../../');
 
 const FIXTURES_PATH = path.join(__dirname, '../fixtures');
 const TMP_PATH      = path.join(__dirname, '../tmp');
@@ -22,7 +22,7 @@ describe('basics', function () {
     
     return new Promise((resolve, reject) => {
       vinylFs.src(FIXTURES_PATH + '/sample-project/**/*')
-        .pipe(gulpPrepareI18n({
+        .pipe(gulpPrepareTranslations({
           languages: [
             {
               code: 'en-US',
